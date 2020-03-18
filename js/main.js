@@ -2,12 +2,16 @@
 var source = $("#card-template").html();
 var cardTemplate = Handlebars.compile(source);
 
-// al click sulla
-$('#send-search').click(function () {
-    $('.card-container .card').hide();
-    var search = $('#input-search').val();
-    $('#input-search').val('');
-    
+// al click sul bottone o all'invio viene eseguita la ricerca
+$('#send-search').click(findFilms);
+$('#input-search').keydown(function(event) {
+    if(event.which == '13') {
+        findFilms();
+    }
+});
+
+
+function getFilmApi(inpSearch) {
     var apiBaseUrl = 'https://api.themoviedb.org/3';
     $.ajax({
         url: apiBaseUrl + '/search/movie',
@@ -15,7 +19,7 @@ $('#send-search').click(function () {
         data: {
             api_key: 'bbf583179ea7e0b62001a8dd43710a73',
             language: 'it-IT',
-            query: search
+            query: inpSearch
         },
         success: function (data) {
             var films = data.results;
@@ -35,4 +39,18 @@ $('#send-search').click(function () {
             alert('Qualcosa è andato storto');
         }
     });
-});
+};
+
+// funzione che ottiene il valore inserito da un input e successivamente pulisce i caratteri digitati nell'input
+function getValAndClear(input) {
+    var val = $(input).val();
+    $(input).val('');
+    return val;
+};
+
+// funzione che trova i film
+function findFilms() {
+    $('.card-container .card').hide(); // nascondo tutti le ricerce aperte, successivamente mostro quello che viene cercato
+    var searchFilm = getValAndClear('#input-search');
+    getFilmApi(searchFilm);
+};
