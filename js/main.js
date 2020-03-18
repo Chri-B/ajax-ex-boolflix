@@ -29,7 +29,7 @@ function getFilmApi(inpSearch, whereAppend) {
                     title: film.title,
                     originalTitle: film.original_title,
                     originalLanguage: film.original_language,
-                    vote: film.vote_average
+                    vote: roundVote(film.vote_average)
                 }
                 var cardFilm = cardTemplate(filmTemplate);
                 $(whereAppend).append(cardFilm);
@@ -48,13 +48,20 @@ function getValAndClear(input) {
     return val;
 };
 
-// funzione che trova i film
+// funzione che restituisce i film ricercati
 function findFilms() {
     $('.card-container .card').hide(); // nascondo tutti le ricerce aperte, successivamente mostro quello che viene cercato
     var searchFilm = getValAndClear('#input-search');
     getFilmApi(searchFilm, '.card-container');
 };
 
+// arrotonda voto da 1-10 decimale in intero e lo trasforma in una scala da 1 a 5
 function roundVote(vote) {
+    var newVote = Math.ceil(vote / 2)
+    console.log(vote, newVote, 'voto 1-5');
+    return newVote
+}
+
+function addStars(number) {
 
 }
