@@ -6,9 +6,31 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" charset="utf-8"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/master.css">
     </head>
     <body>
+        <div class="container-fullwidth">
+            <div class="container container-search">
+                <input id="input-search" placeholder="cerca un film">
+                <button id="send-search">VAI</button>
+            </div>
+            <div class="container card-container">
+
+            </div>
+        </div>
+
+
+        <script id="card-template" type="text/x-handlebars-template">
+            <div class="card">
+                <div class="card-text">
+                    <p>Titolo: <span>{{title}}</span></p>
+                    <p>Titolo originale: <span>{{originalTitle}}</span></p>
+                    <p>Lingua originale: <span>{{originalLanguage}}</span></p>
+                    <p>Voto: <span>{{vote}}</span></p>
+                </div>
+            </div>
+        </script>
 
 
         <script src="js/main.js" charset="utf-8"></script>

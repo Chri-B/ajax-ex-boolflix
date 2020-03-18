@@ -3,3 +3,57 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container-fullwidth {
+    background-color: #141414;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.container-search {
+    align-self: center;
+}
+
+.container {
+    display: flex;
+}
+
+.card-container {
+    padding: 40px;
+    overflow-x: auto;
+}
+
+.card {
+    margin: 15px;
+    padding: 20px;
+    background-color: #b50b11;
+    color: #ececec;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    height: 150px;
+    flex: 0 0 200px;
+    overflow-y: auto;
+}
+
+.card-text {
+    padding-bottom: 20px;
+}
+.card p {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+
+.card span {
+    font-weight: 700;
+    color: white;
+    font-size: 18px;
+}
