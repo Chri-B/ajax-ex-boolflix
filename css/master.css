@@ -46,6 +46,7 @@ body {
 .card-text {
     padding-bottom: 20px;
 }
+
 .card p {
     font-weight: 400;
     color: rgba(255, 255, 255, 0.5);
@@ -56,4 +57,9 @@ body {
     font-weight: 700;
     color: white;
     font-size: 18px;
+}
+
+#input-search {
+    height: 40px;
+    font-size: 20px;
 }

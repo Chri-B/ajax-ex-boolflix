@@ -11,7 +11,7 @@ $('#input-search').keydown(function(event) {
 });
 
 
-function getFilmApi(inpSearch) {
+function getFilmApi(inpSearch, whereAppend) {
     var apiBaseUrl = 'https://api.themoviedb.org/3';
     $.ajax({
         url: apiBaseUrl + '/search/movie',
@@ -32,7 +32,7 @@ function getFilmApi(inpSearch) {
                     vote: film.vote_average
                 }
                 var cardFilm = cardTemplate(filmTemplate);
-                $('.card-container').append(cardFilm);
+                $(whereAppend).append(cardFilm);
             }
         },
         error: function (err) {
@@ -52,5 +52,9 @@ function getValAndClear(input) {
 function findFilms() {
     $('.card-container .card').hide(); // nascondo tutti le ricerce aperte, successivamente mostro quello che viene cercato
     var searchFilm = getValAndClear('#input-search');
-    getFilmApi(searchFilm);
+    getFilmApi(searchFilm, '.card-container');
 };
+
+function roundVote(vote) {
+
+}
