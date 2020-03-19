@@ -11,6 +11,8 @@ $('#input-search').keydown(function(event) {
 });
 
 
+
+
 function getFilmApi(inpSearch, whereAppend) {
     var apiBaseUrl = 'https://api.themoviedb.org/3';
     $.ajax({
@@ -29,14 +31,14 @@ function getFilmApi(inpSearch, whereAppend) {
                     title: film.title,
                     originalTitle: film.original_title,
                     originalLanguage: film.original_language,
-                    vote: roundVote(film.vote_average)
+                    vote: starVote(film.vote_average),
                 }
                 var cardFilm = cardTemplate(filmTemplate);
                 $(whereAppend).append(cardFilm);
             }
         },
         error: function (err) {
-            alert('Qualcosa è andato storto');
+            alert('Ops...Qualcosa è andato storto');
         }
     });
 };
@@ -55,13 +57,29 @@ function findFilms() {
     getFilmApi(searchFilm, '.card-container');
 };
 
-// arrotonda voto da 1-10 decimale in intero e lo trasforma in una scala da 1 a 5
-function roundVote(vote) {
-    var newVote = Math.ceil(vote / 2)
-    console.log(vote, newVote, 'voto 1-5');
+// funzione che arrotonda voto da 1-10 decimale in intero e lo trasforma in una scala da 1 a 5
+function roundHalfVote(number) {
+    var newVote = Math.ceil(number / 2)
     return newVote
 }
 
-function addStars(number) {
-
+// funzione che assegna il numero di stella piene equivalente al voto del film, e un numero di stelle vuote uguale alla differenza tra 5 e il voto del film
+function starVote(vote) {
+    var starVote = roundHalfVote(vote);
+    var stella = [];
+    var j = 0;
+    for (var i = 0; i < 5; i++) {
+        console.log(j);
+        if (j < starVote) {
+            stella.push('<i class="fas fa-star"></i>');
+            console.log(stella, j);
+            j = j + 1;
+        } else {
+            stella.push('<i class="far fa-star"></i>');
+            console.log(stella, j);
+            j = j + 1;
+        }
+    }
+    console.log(stella, 'array');
+    return stella.join('');
 }
