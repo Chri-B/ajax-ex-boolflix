@@ -54,7 +54,9 @@ function getValAndClear(input) {
 function findFilms() {
     $('.card-container .card').hide(); // nascondo tutti le ricerce aperte, successivamente mostro quello che viene cercato
     var searchFilm = getValAndClear('#input-search');
-    getFilmApi(searchFilm, '.card-container');
+    if (searchFilm != '') {
+        getFilmApi(searchFilm, '.card-container');
+    }
 };
 
 // funzione che arrotonda voto da 1-10 decimale in intero e lo trasforma in una scala da 1 a 5
