@@ -12,10 +12,17 @@
     <body>
         <div class="container-fullwidth">
             <div class="container container-search">
-                <input id="input-search" placeholder="cerca un film">
-                <button id="send-search">VAI</button>
+                <input id="input-search-film" class="barra-ricerca" placeholder="cerca un film">
+                <button id="btn-search-film">VAI</button>
             </div>
-            <div class="container card-container">
+            <div  id="film-card-container" class="container card-container">
+
+            </div>
+            <div class="container container-search">
+                <input id="input-search-tv" class="barra-ricerca" placeholder="cerca una serie tv">
+                <button id="btn-search-tv">VAI</button>
+            </div>
+            <div id="tv-card-container" class="container card-container">
 
             </div>
         </div>
@@ -26,7 +33,10 @@
                 <div class="card-text">
                     <p>Titolo: <span>{{title}}</span></p>
                     <p>Titolo originale: <span>{{originalTitle}}</span></p>
-                    <p>Lingua originale: <span>{{originalLanguage}}</span></p>
+                    <div class="box-language">
+                        <p>Lingua originale: <span>{{originalLanguage}}</span></p>
+                        <img src="https://www.countryflags.io/{{originalFlag}}/shiny/24.png">
+                    </div>
                     <p>Voto: <span>{{{vote}}}</span></p>
                 </div>
             </div>

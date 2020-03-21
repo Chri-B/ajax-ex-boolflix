@@ -39,7 +39,7 @@ body {
     flex-direction: column;
     border-radius: 5px;
     height: 150px;
-    flex: 0 0 200px;
+    flex: 0 0 230px;
     overflow-y: auto;
 }
 
@@ -59,11 +59,20 @@ body {
     font-size: 18px;
 }
 
-#input-search {
+.barra-ricerca {
     height: 40px;
     font-size: 20px;
 }
 
 .fas.fa-star {
     color: yellow;
+}
+
+.box-language {
+    display: flex;
+    align-items: center;
+}
+
+.box-language img {
+    padding-left: 10px;
 }
