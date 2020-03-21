@@ -30,14 +30,18 @@
 
         <script id="card-template" type="text/x-handlebars-template">
             <div class="card">
+                <img class="copertina" src="https://image.tmdb.org/t/p/w342/{{posterImg}}" alt="copertina non disponibile">
                 <div class="card-text">
                     <p>Titolo: <span>{{title}}</span></p>
                     <p>Titolo originale: <span>{{originalTitle}}</span></p>
                     <div class="box-language">
                         <p>Lingua originale: <span>{{originalLanguage}}</span></p>
-                        <img src="https://www.countryflags.io/{{originalFlag}}/shiny/24.png">
+                        <img src="https://www.countryflags.io/{{originalFlag}}/shiny/24.png" alt="">
                     </div>
                     <p>Voto: <span>{{{vote}}}</span></p>
+                    <div class="testo-overview">
+                        <p>Overview: <span>{{overview}}</span></p>
+                    </div>
                 </div>
             </div>
         </script>
