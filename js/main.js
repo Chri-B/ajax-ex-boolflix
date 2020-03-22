@@ -5,16 +5,10 @@ $(document).ready(function() {
     var cardTemplate = Handlebars.compile(cardSrc);
 
     // al click sul bottone o all'invio viene eseguita la ricerca
-    $('#btn-search-film').click(findFilms);
-    $('#btn-search-tv').click(findTv);
+    $('#btn-search-film').click(findMedia);
     $('#input-search-film').keydown(function(event) {
         if(event.keyCode == '13') {
-            findFilms();
-        }
-    });
-    $('#input-search-tv').keydown(function(event) {
-        if(event.keyCode == '13') {
-            findTv();
+            findMedia();
         }
     });
 
@@ -106,20 +100,12 @@ $(document).ready(function() {
     };
 
     // funzione che restituisce i film ricercati
-    function findFilms() {
-        $('#film-card-container .card').remove(); // rimuovo tutti le ricerce aperte, successivamente mostro quello che viene cercato
-        var searchFilm = getValAndClear('#input-search-film');
-        if (searchFilm != '') {
-            getFilmApi(searchFilm, '#film-card-container');
-        }
-    };
-
-    // funzione che restituisce le serie tv ricercate
-    function findTv() {
-        $('#tv-card-container .card').remove(); // rimuovo tutti le ricerce aperte, successivamente mostro quello che viene cercato
-        var searchTv = getValAndClear('#input-search-tv');
-        if (searchTv != '') {
-            getTvApi(searchTv, '#tv-card-container');
+    function findMedia() {
+        $('.card').remove(); // rimuovo tutti le ricerce aperte, successivamente mostro quello che viene cercato
+        var searchMedia = getValAndClear('#input-search-film');
+        if (searchMedia != '') {
+            getFilmApi(searchMedia, '#film-card-container');
+            getTvApi(searchMedia, '#tv-card-container');
         }
     };
 

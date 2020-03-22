@@ -47,6 +47,9 @@ body {
     display: none;
 }
 
+.copertina {
+    font-style: italic;
+}
 .testo-overview {
     max-height: 300px;
     overflow-y: auto;
@@ -88,4 +91,8 @@ body {
 
 .box-language img {
     padding-left: 10px;
+}
+
+h3 {
+    color: white;
 }
