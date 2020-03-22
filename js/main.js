@@ -4,24 +4,40 @@ $(document).ready(function() {
     var cardSrc = $("#card-template").html();
     var cardTemplate = Handlebars.compile(cardSrc);
 
-    // al click sul bottone o all'invio viene eseguita la ricerca
-    $('#btn-search-film').click(findMedia);
-    $('#input-search-film').keydown(function(event) {
+    // all'input di ricerca viene aggiunto un effetto box-shadow
+    $('#input-search').click(function() {
+        $(this).css('box-shadow', 'inset 0px 0px 5px 2px #d71d29');
+    });
+
+    // al click sul bottone viene eseguita la ricerca - poi viene rimosso il box shadow
+    $('#btn-search').click(function() {
+        findMedia();
+        removeBoxShadow('#input-search');
+    });
+    // al click sul tasto Enter della tastiera viene eseguita la ricerca - poi viene rimosso il box shadow
+    $('#input-search').keydown(function(event) {
         if(event.keyCode == '13') {
             findMedia();
+            removeBoxShadow('#input-search');
         }
     });
 
+    // viene rimosso il box shadow con un click ovunque sulle section (NON nell'header)
+    $('section').click(function() {
+        removeBoxShadow('#input-search');
+    });
+
+    // al mouse hover su una carta viene nascosta la copertina e vengono visualizzate le info della carta
     $('.container').on( 'mouseenter', '.card', function() {
-        console.log('salito');
         $(this).children('img').hide();
         $(this).children('.card-text').addClass('active');
     });
+    // al mouse leave viene ripristinata la situazione iniziale
     $('.container').on( 'mouseleave', '.card', function() {
-        console.log('salito');
         $(this).children('img').show();
         $(this).children('.card-text').removeClass('active');
     });
+
 
 
     // funzione per raggiungere il film nell'API
@@ -102,7 +118,7 @@ $(document).ready(function() {
     // funzione che restituisce i film ricercati
     function findMedia() {
         $('.card').remove(); // rimuovo tutti le ricerce aperte, successivamente mostro quello che viene cercato
-        var searchMedia = getValAndClear('#input-search-film');
+        var searchMedia = getValAndClear('#input-search');
         if (searchMedia != '') {
             getFilmApi(searchMedia, '#film-card-container');
             getTvApi(searchMedia, '#tv-card-container');
@@ -141,6 +157,11 @@ $(document).ready(function() {
             var flag = 'cn';
         }
         return flag;
+    };
+
+    // funzione che rimuove il box-shadow interno rosso
+    function removeBoxShadow(element) {
+        $(element).css('box-shadow', 'none');
     };
 
 });

@@ -11,18 +11,27 @@
     </head>
     <body>
         <div class="container-fullwidth">
-            <div class="container container-search">
-                <input id="input-search-film" class="barra-ricerca" placeholder="cerca un film">
-                <button id="btn-search-film">VAI</button>
-            </div>
-            <div  id="film-card-container" class="container card-container">
-                <h3>Film</h3>
-            </div>
-            <div class="container">
-            </div>
-            <div id="tv-card-container" class="container card-container">
-                <h3>serie tv</h3>
-            </div>
+            <header>
+                <div id="logo">
+                    <a href="#">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/280px-Netflix_2015_logo.svg.png" alt="boolflix">
+                    </a>
+                </div>
+                <div class="search">
+                    <input id="input-search" class="barra-ricerca" placeholder="cerca film o serie TV">
+                    <button id="btn-search">cerca</button>
+                </div>
+            </header>
+            <section id="film">
+                <h2>Film</h2>
+                <div  id="film-card-container" class="container card-container">
+                </div>
+            </section>
+            <section id="serie-tv">
+                <h2>Serie TV</h2>
+                <div id="tv-card-container" class="container card-container">
+                </div>
+            </section>
         </div>
 
 

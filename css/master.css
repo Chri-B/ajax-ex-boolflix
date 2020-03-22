@@ -13,13 +13,55 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     overflow-x: hidden;
 }
 
-.container-search {
-    align-self: center;
-    padding-top: 40px;
+h2 {
+    color: #d71d29;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+section {
+    padding: 20px;
+    min-height: 200px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+#btn-search {
+    padding: 10px 12px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: white;
+    font-weight: 700;
+}
+
+#btn-search:hover{
+    background-color: #d71d29;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#input-search {
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
 }
 
 .container {
@@ -27,7 +69,7 @@ body {
 }
 
 .card-container {
-    padding: 40px;
+    padding: 40px 0;
     overflow-x: auto;
 }
 
@@ -60,7 +102,7 @@ body {
 }
 
 .card.shadow{
-    box-shadow: 0 5px 20px #b50b11;
+    box-shadow: 0 5px 20px #d71d29;
 }
 
 .card p {
@@ -75,11 +117,6 @@ body {
     font-size: 18px;
 }
 
-.barra-ricerca {
-    height: 40px;
-    font-size: 20px;
-}
-
 .fas.fa-star {
     color: yellow;
 }
@@ -91,8 +128,4 @@ body {
 
 .box-language img {
     padding-left: 10px;
-}
-
-h3 {
-    color: white;
 }
