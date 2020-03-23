@@ -39,73 +39,14 @@ $(document).ready(function() {
     });
 
 
-
-    // funzione per raggiungere il film nell'API
-    function getFilmApi(inpSearch, whereAppend) {
-        var apiBaseUrl = 'https://api.themoviedb.org/3';
-        $.ajax({
-            url: apiBaseUrl + '/search/movie',
-            method: 'GET',
-            data: {
-                api_key: 'bbf583179ea7e0b62001a8dd43710a73',
-                language: 'it-IT',
-                query: inpSearch
-            },
-            success: function (data) {
-                var films = data.results;
-                for (var i = 0; i < films.length; i++) {
-                    var film = films[i];
-                    var filmTemplate = {
-                        posterImg: film.poster_path,
-                        title: film.title,
-                        originalTitle: film.original_title,
-                        originalFlag: flagsImg(film.original_language),
-                        originalLanguage: film.original_language,
-                        vote: starVote(film.vote_average),
-                        overview: film.overview
-                    }
-                    var cardFilm = cardTemplate(filmTemplate);
-                    $(whereAppend).append(cardFilm);
-                }
-            },
-            error: function (err) {
-                alert('Ops...Qualcosa è andato storto');
-            }
-        });
-    };
-
-    // funzione per raggiungere le serie TV nell'API
-    function getTvApi(inpSearch, whereAppend) {
-        var apiBaseUrl = 'https://api.themoviedb.org/3';
-        $.ajax({
-            url: apiBaseUrl + '/search/tv',
-            method: 'GET',
-            data: {
-                api_key: 'bbf583179ea7e0b62001a8dd43710a73',
-                language: 'it-IT',
-                query: inpSearch
-            },
-            success: function (data) {
-                var tvShows = data.results;
-                for (var i = 0; i < tvShows.length; i++) {
-                    var tvShow = tvShows[i];
-                    var tvShowTemplate = {
-                        posterImg: tvShow.poster_path,
-                        title: tvShow.name,
-                        originalTitle: tvShow.original_name,
-                        originalFlag: flagsImg(tvShow.original_language),
-                        originalLanguage: tvShow.original_language,
-                        vote: starVote(tvShow.vote_average),
-                        overview: tvShow.overview
-                    }
-                    var cardTvShow = cardTemplate(tvShowTemplate);
-                    $(whereAppend).append(cardTvShow);
-                }
-            },
-            error: function (err) {
-                alert('Ops...Qualcosa è andato storto');
-            }
-        });
+    // funzione che restituisce i film ricercati
+    function findMedia() {
+        $('.card').remove(); // rimuovo tutte le card generate in precedenza, se ci sono
+        var searchMedia = getValAndClear('#input-search');
+        if (searchMedia != '') {
+            getMediaApi('movie', searchMedia, '#film-card-container');
+            getMediaApi('tv', searchMedia, '#tv-card-container');
+        }
     };
 
     // funzione che ottiene il valore inserito da un input e successivamente pulisce i caratteri digitati nell'input
@@ -115,20 +56,65 @@ $(document).ready(function() {
         return val;
     };
 
-    // funzione che restituisce i film ricercati
-    function findMedia() {
-        $('.card').remove(); // rimuovo tutti le ricerce aperte, successivamente mostro quello che viene cercato
-        var searchMedia = getValAndClear('#input-search');
-        if (searchMedia != '') {
-            getFilmApi(searchMedia, '#film-card-container');
-            getTvApi(searchMedia, '#tv-card-container');
-        }
+    // funzione per raggiungere il film nell'API
+    function getMediaApi(tipo, inpSearch, whereAppend) {
+        var apiBaseUrl = 'https://api.themoviedb.org/3';
+        $.ajax({
+            url: apiBaseUrl + '/search/' + tipo,
+            method: 'GET',
+            data: {
+                api_key: 'bbf583179ea7e0b62001a8dd43710a73',
+                language: 'it-IT',
+                query: inpSearch
+            },
+            success: function (data) {
+                var movies = data.results;
+                createCard(movies, tipo, whereAppend);
+            },
+            error: function (err) {
+                alert('Ops...Qualcosa è andato storto');
+            }
+        });
     };
 
-    // funzione che arrotonda voto da 1-10 decimale in intero e lo trasforma in una scala da 1 a 5
-    function roundHalfVote(number) {
-        var newVote = Math.ceil(number / 2)
-        return newVote
+    // funzione che estrapola i dati dell'oggetto analizzato creando una card che viene riportata nel DIV corrispondente tramite handlebars
+    function createCard(array, tipo, whereAppend) {
+        for (var i = 0; i < array.length; i++) {
+            var movie = array[i];
+            var titolo, titoloOriginale;
+            if (tipo == 'movie') {
+                titolo = movie.title;
+                titoloOriginale = movie.original_title;
+            } else if (tipo == 'tv') {
+                titolo = movie.name;
+                titoloOriginale = movie.original_name;
+            }
+            var movieTemplate = {
+                posterImg: movie.poster_path,
+                title: titolo,
+                originalTitle: titoloOriginale,
+                originalFlag: flagsImg(movie.original_language),
+                originalLanguage: movie.original_language,
+                vote: movie.vote_average,
+                stelle: starVote(movie.vote_average),
+                overview: movie.overview
+            }
+            var cardMovie = cardTemplate(movieTemplate);
+            $(whereAppend).append(cardMovie);
+        }
+    }
+
+    // funzione che restituisce una immagine di bandiera nella sezione lingua originale
+    function flagsImg(country) {
+        var flag = country;
+        if (flag == 'en') {
+            var flag = 'gb';
+        } else if (flag == 'zh') {
+            var flag = 'cn';
+        } else if (flag == 'ja') {
+            var flag = 'jp';
+        }
+        return flag;
     };
 
     // funzione che assegna il numero di stella piene equivalente al voto del film, e un numero di stelle vuote uguale alla differenza tra 5 e il voto del film
@@ -148,15 +134,9 @@ $(document).ready(function() {
         return stella.join('');
     };
 
-    // funzione che restituisce una immagine di bandiera nella sezione lingua originale
-    function flagsImg(country) {
-        var flag = country;
-        if (flag == 'en') {
-            var flag = 'gb';
-        } else if (flag == 'zh') {
-            var flag = 'cn';
-        }
-        return flag;
+    // funzione che arrotonda voto da 1-10 decimale in intero e lo trasforma in una scala da 1 a 5
+    function roundHalfVote(number) {
+        return Math.ceil(number / 2)
     };
 
     // funzione che rimuove il box-shadow interno rosso
