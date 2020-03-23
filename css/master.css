@@ -36,6 +36,8 @@ h2 {
 header {
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
     padding: 20px;
 }
 
@@ -47,6 +49,7 @@ section {
 .search {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 #btn-search {
@@ -140,4 +143,10 @@ section {
 
 .box-language img {
     padding-left: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    header {
+        flex-direction: column;
+    }
 }
