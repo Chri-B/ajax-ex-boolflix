@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 <div class="search">
-                    <input id="input-search" class="barra-ricerca" placeholder="cerca film o serie TV">
+                    <input id="input-search" class="barra-ricerca" placeholder="cerca film o serie TV" value="lord of the rings">
                     <button id="btn-search">cerca</button>
                 </div>
             </header>
@@ -37,7 +37,7 @@
 
         <script id="card-template" type="text/x-handlebars-template">
             <div class="card">
-                <img class="copertina" src="https://image.tmdb.org/t/p/w342/{{posterImg}}" alt="copertina non disponibile">
+                <img class="copertina" src="https://image.tmdb.org/t/p/w342/{{posterImg}}" alt="{{title}}">
                 <div class="card-text">
                     <p>Titolo: <span>{{title}}</span></p>
                     <p>Titolo originale: <span>{{originalTitle}}</span></p>
@@ -45,7 +45,7 @@
                         <p>Lingua originale: <span>{{originalLanguage}}</span></p>
                         <img src="https://www.countryflags.io/{{originalFlag}}/shiny/24.png" alt="">
                     </div>
-                    <p>Voto: <span>{{{vote}}}</span></p>
+                    <p>Voto: <span>{{{vote}}}/10 {{{stelle}}}</span></p>
                     <div class="testo-overview">
                         <p>Overview: <span>{{overview}}</span></p>
                     </div>

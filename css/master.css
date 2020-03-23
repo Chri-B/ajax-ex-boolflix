@@ -31,7 +31,7 @@ header {
 
 section {
     padding: 20px;
-    min-height: 200px;
+    min-height: 50vh;
 }
 
 .search {
@@ -82,6 +82,7 @@ section {
     align-items: center;
     border-radius: 10px;
     flex: 0 0 342px;
+    min-height: 500px;
 }
 
 .card-text {
@@ -90,7 +91,8 @@ section {
 }
 
 .copertina {
-    font-style: italic;
+    font-weight: 700;
+    font-size: 30px;
 }
 .testo-overview {
     max-height: 300px;
