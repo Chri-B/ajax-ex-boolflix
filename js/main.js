@@ -38,7 +38,6 @@ $(document).ready(function() {
         $(this).children('.card-text').removeClass('active');
     });
 
-
     // funzione che restituisce i film ricercati
     function findMedia() {
         $('.card').remove(); // rimuovo tutte le card generate in precedenza, se ci sono
@@ -97,7 +96,8 @@ $(document).ready(function() {
                 originalLanguage: movie.original_language,
                 vote: movie.vote_average,
                 stelle: starVote(movie.vote_average),
-                overview: movie.overview
+                overview: movie.overview,
+                movieId: movie.id
             }
             var cardMovie = cardTemplate(movieTemplate);
             $(whereAppend).append(cardMovie);
