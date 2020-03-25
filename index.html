@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 <div class="search">
-                    <input id="input-search" class="barra-ricerca" placeholder="cerca film o serie TV"> <!-- value="signore degli anelli"-->
+                    <input id="input-search" class="barra-ricerca" placeholder="cerca film o serie TV" value="avengers"> <!-- value="avengers"-->
                     <button id="btn-search">cerca</button>
                 </div>
             </header>
@@ -36,7 +36,7 @@
 
 
         <script id="card-template" type="text/x-handlebars-template">
-            <div class="card">
+            <div class="card" data-movie-id="{{movieId}}">
                 <img class="copertina" src="https://image.tmdb.org/t/p/w342/{{posterImg}}" alt="{{title}}">
                 <div class="card-text">
                     <p>Titolo: <span>{{title}}</span></p>
@@ -49,9 +49,28 @@
                     <div class="testo-overview">
                         <p>Overview: <span>{{overview}}</span></p>
                     </div>
+                    <div class="bottone-info">
+                        <button>scopri di più</button>
+                    </div>
+                </div>
+                <div class="box-generi">
+                    <p class="generi">Genere: <span></span></p>
                 </div>
             </div>
         </script>
+
+        <script id="actor-template" type="text/x-handlebars-template">
+            <div class="more-info">
+                <div class="img-profilo">
+                    <img class="foto-attore" src="https://image.tmdb.org/t/p/w45/{{foto}}" alt="">    
+                </div>
+                <div class="more-info-text">
+                    <p class="personaggio">Personaggio: <span>{{personaggio}}</span></p>
+                    <p class="attore">Nome: <span>{{attore}}</span></p>
+                </div>
+            </div>
+        </script>
+
 
         <script src="js/main.js" charset="utf-8"></script>
     </body>

@@ -16,11 +16,11 @@ body {
     overflow-x: hidden;
 }
 
-header a{
+header a {
     text-decoration: none;
 }
 
-h1{
+h1 {
     color: #d71d29;
     font-size: 60px;
     text-transform: uppercase;
@@ -52,9 +52,8 @@ section {
     justify-content: center;
 }
 
-#btn-search {
+button {
     padding: 10px 12px;
-    margin-left: 20px;
     border: none;
     border-radius: 5px;
     color: black;
@@ -62,11 +61,15 @@ section {
     font-weight: 700;
 }
 
-#btn-search:hover{
+button:hover{
     background-color: #d71d29;
     color: white;
     font-size: 20px;
     cursor: pointer;
+}
+
+#btn-search {
+    margin-left: 20px;
 }
 
 #input-search {
@@ -93,7 +96,7 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     border-radius: 10px;
     flex: 0 0 342px;
     min-height: 500px;
@@ -104,17 +107,19 @@ section {
     display: none;
 }
 
+.bottone-info {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
 .copertina {
     font-weight: 700;
     font-size: 30px;
 }
 .testo-overview {
-    max-height: 300px;
+    max-height: 200px;
     overflow-y: auto;
-}
-
-.card-text.active {
-    display: block;
 }
 
 .card.shadow{
@@ -146,6 +151,22 @@ section {
     padding-left: 10px;
 }
 
+.box-generi {
+    display: none;
+}
+
+.more-info {
+    display: flex;
+    padding-top: 5px;
+}
+
+.more-info-text {
+    padding-left: 10px;
+}
+
+.img-profilo {
+    width: 45px;
+}
 @media screen and (min-width: 768px) {
     header {
         flex-direction: row;
