@@ -37,25 +37,27 @@ $(document).ready(function() {
     });
     // al mouse leave viene ripristinata la situazione iniziale
     $('.container').on( 'mouseleave', '.card', function() {
-        $(this).parents('.more-info').hide();
         $(this).children('img').show();
         $(this).children('.card-text').hide();
+        $(this).parents('.more-info').remove();
         $(this).find('.box-generi').hide();
         $(this).find('.more-info').remove();
     });
 
-    $('section').on('click', '.card button', function() {
-        var movieId = $(this).parents('.card').data('movieId');
-        $(this).parents('.card-text').hide();
+    // al click della card nella sezione, vengono evocate le funzioni per visualizzare e
+    $('#film-card-container').on('click', '.card button', function() {
         var that = $(this);
-        that.parents('.card-text').siblings('.box-generi').show();
-        console.log(movieId);
-        getCastGenreApi(movieId, that);
+        showThirdCard(that);
+        getCastGenreApi(that, 'movie');
+    });
+    $('#tv-card-container').on('click', '.card button', function() {
+        var that = $(this);
+        showThirdCard(that);
+        getCastGenreApi(that, 'tv');
     });
 
-    // --------------------------------------------------------------------------------------------------
+
     // ------------------------------------------FUNZIONI------------------------------------------------
-    // --------------------------------------------------------------------------------------------------
 
     // funzione che restituisce i film ricercati
     function findMedia() {
@@ -124,17 +126,18 @@ $(document).ready(function() {
     }
 
     // funzione per raggiungere i dati relativi a Genere e Cast
-    function getCastGenreApi(idFilmSerie, selezionato) {
+    function getCastGenreApi(selezionato, tvMovie) {
         var apiBaseUrl = 'https://api.themoviedb.org/3';
+        var movieId = selezionato.parents('.card').data('movieId');
         $.ajax({
-            url: apiBaseUrl + '/movie/' + idFilmSerie,
+            url: apiBaseUrl + '/' + tvMovie + '/' + movieId,
             method: 'GET',
             data: {
                 api_key: 'bbf583179ea7e0b62001a8dd43710a73',
                 language: 'it-IT',
                 append_to_response: 'credits'
             },
-            success: function(data) {
+            success: function(data) { // !!!!!! CODICE DA MIGLIORAREEEEEEEEEE!!!!!!
                 var castMovie = data.credits.cast;
                 for (var i = 0; i < 5; i++) {
                     // console.log(castMovie[i]);
@@ -146,7 +149,6 @@ $(document).ready(function() {
                     }
                     var cardCast = cardCastTemplate(castTemplate);
                     $(selezionato).parents('.card').append(cardCast);
-                    console.log(castTemplate.foto);
                 }
                 createBoxGenre(selezionato, data);
             },
@@ -206,6 +208,11 @@ $(document).ready(function() {
     // funzione che rimuove il box-shadow interno rosso
     function removeBoxShadow(element) {
         $(element).css('box-shadow', 'none');
+    };
+
+    function showThirdCard(selezione) {
+        selezione.parents('.card-text').hide();
+        selezione.parents('.card-text').siblings('.box-generi').show();
     };
 
 });
