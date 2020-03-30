@@ -183,6 +183,7 @@ button:hover{
     font-weight: 600;
     font-size: 20px;
     color: black;
+    width: 220px;
 }
 
 .filter {

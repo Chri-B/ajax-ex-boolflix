@@ -7,36 +7,18 @@ $(document).ready(function() {
     var cardCastSrc = $('#actor-template').html();
     var cardCastTemplate = Handlebars.compile(cardCastSrc);
 
+    // il selettore dei generi viene integrato di tutti i generi disponibili
     getGenreList('movie');
     getGenreList('tv');
 
+    // alla selezione del genere, rimangono solamente le card del genere selezionato
     $('#genre-selector-movie').change(function() {
         var selectedGenre = $(this).val();
-        if (selectedGenre == "") {
-            $('#film .card').show();
-        } else {
-            $('#film .card .genre-ids').each(function() {
-                if ($(this).text().includes(selectedGenre)) {
-                    $(this).parents('.card').show();
-                } else {
-                    $(this).parents('.card').hide();
-                }
-            });
-        }
+        cardSelector('#film-card-container', selectedGenre);
     });
     $('#genre-selector-tv').change(function() {
         var selectedGenre = $(this).val();
-        if (selectedGenre == "") {
-            $('#serie-tv .card').show();
-        } else {
-            $('#serie-tv .card .genre-ids').each(function() {
-                if ($(this).text().includes(selectedGenre)) {
-                    $(this).parents('.card').show();
-                } else {
-                    $(this).parents('.card').hide();
-                }
-            });
-        }
+        cardSelector('#tv-card-container', selectedGenre);
     });
 
     // all'input di ricerca viene aggiunto un effetto box-shadow
@@ -44,11 +26,12 @@ $(document).ready(function() {
         $(this).css('box-shadow', 'inset 0px 0px 5px 2px #d71d29');
     });
 
-    // al click sul bottone viene eseguita la ricerca - poi viene rimosso il box shadow
+    // al click sul bottone viene eseguita la ricerca -  poi viene rimosso il box shadow
     $('#btn-search').click(function() {
         findMedia();
         removeBoxShadow('#input-search');
     });
+
     // al click sul tasto Enter della tastiera viene eseguita la ricerca - poi viene rimosso il box shadow
     $('#input-search').keydown(function(event) {
         if(event.keyCode == '13') {
@@ -67,6 +50,7 @@ $(document).ready(function() {
         $(this).children('img').hide();
         $(this).children('.card-text').show();
     });
+
     // al mouse leave viene ripristinata la situazione iniziale
     $('.container').on( 'mouseleave', '.card', function() {
         $(this).children('img').show();
@@ -253,7 +237,7 @@ $(document).ready(function() {
         selezione.parents('.card-text').siblings('.box-generi').show();
     };
 
-    // funzione per raggiungere i dati relativi a Genere e Cast
+    // funzione per raggiungere la lista dei generi per film o serie TV
     function getGenreList(tvMovie) {
         var apiBaseUrl = 'https://api.themoviedb.org/3';
         $.ajax({
@@ -274,5 +258,20 @@ $(document).ready(function() {
             }
         });
     };
+
+    // funzione che confronta il valore in ingresso (selectedGenre) con il valore corrispondente delle CARD e mostra quelle coincidenti, nascondendo le altre.
+    function cardSelector(position, selectedGenre) {
+        if (selectedGenre == "") {
+            $(position).find('.card').show();
+        } else {
+            $(position).find('.genre-ids').each(function() {
+                if ($(this).text().includes(selectedGenre)) {
+                    $(this).parents('.card').show();
+                } else {
+                    $(this).parents('.card').hide();
+                }
+            });
+        }
+    }
 
 });
