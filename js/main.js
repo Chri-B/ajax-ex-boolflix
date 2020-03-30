@@ -7,6 +7,38 @@ $(document).ready(function() {
     var cardCastSrc = $('#actor-template').html();
     var cardCastTemplate = Handlebars.compile(cardCastSrc);
 
+    getGenreList('movie');
+    getGenreList('tv');
+
+    $('#genre-selector-movie').change(function() {
+        var selectedGenre = $(this).val();
+        if (selectedGenre == "") {
+            $('#film .card').show();
+        } else {
+            $('#film .card .genre-ids').each(function() {
+                if ($(this).text().includes(selectedGenre)) {
+                    $(this).parents('.card').show();
+                } else {
+                    $(this).parents('.card').hide();
+                }
+            });
+        }
+    });
+    $('#genre-selector-tv').change(function() {
+        var selectedGenre = $(this).val();
+        if (selectedGenre == "") {
+            $('#serie-tv .card').show();
+        } else {
+            $('#serie-tv .card .genre-ids').each(function() {
+                if ($(this).text().includes(selectedGenre)) {
+                    $(this).parents('.card').show();
+                } else {
+                    $(this).parents('.card').hide();
+                }
+            });
+        }
+    });
+
     // all'input di ricerca viene aggiunto un effetto box-shadow
     $('#input-search').click(function() {
         $(this).css('box-shadow', 'inset 0px 0px 5px 2px #d71d29');
@@ -118,6 +150,7 @@ $(document).ready(function() {
                 vote: movie.vote_average,
                 stelle: starVote(movie.vote_average),
                 overview: movie.overview,
+                genreIds: movie.genre_ids,
                 movieId: movie.id
             }
             var cardMovie = cardTemplate(movieTemplate);
@@ -137,19 +170,9 @@ $(document).ready(function() {
                 language: 'it-IT',
                 append_to_response: 'credits'
             },
-            success: function(data) { // !!!!!! CODICE DA MIGLIORAREEEEEEEEEE!!!!!!
+            success: function(data) {
                 var castMovie = data.credits.cast;
-                for (var i = 0; i < 5; i++) {
-                    // console.log(castMovie[i]);
-                    var actor = castMovie[i];
-                    var castTemplate = {
-                        foto: actor.profile_path,
-                        personaggio: actor.character,
-                        attore: actor.name
-                    }
-                    var cardCast = cardCastTemplate(castTemplate);
-                    $(selezionato).parents('.card').append(cardCast);
-                }
+                createActorsPreview(selezionato, castMovie);
                 createBoxGenre(selezionato, data);
             },
             error: function(err) {
@@ -169,6 +192,20 @@ $(document).ready(function() {
         $(selezionato).parents('.card').find('.box-generi .generi span').remove();
         $(selezionato).parents('.card').find('.box-generi .generi').append('<span>' + arrayJoinGenre + '</span>');
     };
+
+    // funzione che estrapola i dati dell'oggetto analizzato creando una card che viene riportata nel DIV corrispondente tramite handlebars
+    function createActorsPreview(selezionato, castMovie) {
+        for (var i = 0; i < 5; i++) {
+            var actor = castMovie[i];
+            var castTemplate = {
+                foto: actor.profile_path,
+                personaggio: actor.character,
+                attore: actor.name
+            }
+            var cardCast = cardCastTemplate(castTemplate);
+            $(selezionato).parents('.card').append(cardCast);
+        }
+    }
 
     // funzione che restituisce una immagine di bandiera nella sezione lingua originale
     function flagsImg(country) {
@@ -210,9 +247,32 @@ $(document).ready(function() {
         $(element).css('box-shadow', 'none');
     };
 
+    // funzione per mostrare la terza view relativa ad ogni card
     function showThirdCard(selezione) {
         selezione.parents('.card-text').hide();
         selezione.parents('.card-text').siblings('.box-generi').show();
+    };
+
+    // funzione per raggiungere i dati relativi a Genere e Cast
+    function getGenreList(tvMovie) {
+        var apiBaseUrl = 'https://api.themoviedb.org/3';
+        $.ajax({
+            url: apiBaseUrl + '/genre/' + tvMovie + '/list',
+            method: 'GET',
+            data: {
+                api_key: 'bbf583179ea7e0b62001a8dd43710a73',
+                language: 'it-IT'
+            },
+            success: function(data) {
+                var genreList = data.genres;
+                for (var i = 0; i < genreList.length; i++) {
+                    $('#genre-selector-' + tvMovie).append('<option value="' + genreList[i].id + '">' + genreList[i].name + '</option>');
+                }
+            },
+            error: function(err) {
+                alert('Errore richiesta lista-genere');
+            }
+        });
     };
 
 });

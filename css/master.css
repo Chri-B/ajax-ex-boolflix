@@ -169,6 +169,27 @@ button:hover{
     width: 45px;
 }
 
+.genre-ids {
+    display: none;
+}
+
+.genre-selector {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background: #d71d29;
+    -webkit-appearance: none;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    color: black;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+}
+
 @media screen and (min-width: 768px) {
     header {
         flex-direction: row;

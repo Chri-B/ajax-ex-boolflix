@@ -24,11 +24,21 @@
             </header>
             <section id="film">
                 <h2>Film</h2>
+                <div class="filter">
+                    <select id="genre-selector-movie" class="genre-selector">
+                        <option value="">Filtra per genere</option>
+                    </select>
+                </div>
                 <div  id="film-card-container" class="container card-container">
                 </div>
             </section>
             <section id="serie-tv">
                 <h2>Serie TV</h2>
+                <div class="filter">
+                    <select id="genre-selector-tv" class="genre-selector">
+                        <option value="">Filtra per genere</option>
+                    </select>
+                </div>
                 <div id="tv-card-container" class="container card-container">
                 </div>
             </section>
@@ -39,6 +49,7 @@
             <div class="card" data-movie-id="{{movieId}}">
                 <img class="copertina" src="https://image.tmdb.org/t/p/w342/{{posterImg}}" alt="{{title}}">
                 <div class="card-text">
+                    <p class="genre-ids">{{genreIds}}</p>
                     <p>Titolo: <span>{{title}}</span></p>
                     <p>Titolo originale: <span>{{originalTitle}}</span></p>
                     <div class="box-language">
@@ -62,7 +73,7 @@
         <script id="actor-template" type="text/x-handlebars-template">
             <div class="more-info">
                 <div class="img-profilo">
-                    <img class="foto-attore" src="https://image.tmdb.org/t/p/w45/{{foto}}" alt="">    
+                    <img class="foto-attore" src="https://image.tmdb.org/t/p/w45/{{foto}}" alt="">
                 </div>
                 <div class="more-info-text">
                     <p class="personaggio">Personaggio: <span>{{personaggio}}</span></p>
